@@ -15,5 +15,7 @@ extends BaseRepository<ITodoDbModel, TodoDbModel> {
     constructor(@inject(TYPES.Database) _database: Database) {
         super();
         this.model = _database.todos;
+        //console.log("GET MODEL");
+        //console.log(_database.todos);
     }
 }
