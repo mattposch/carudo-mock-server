@@ -18,11 +18,12 @@ import { UserController } from './../modules/user/controller/user.controller';
 import { HealthCheckController } from '../modules/healthcheck/controller/healthcheck.controller';
 import { TodoController } from '../modules/todo/controller/todo.controller';
 import { TodoService } from '../modules/todo/service/todo.service';
+import { JsonDbService } from '../modules/todo/service/jsondb.service';
 import { TodoRepository } from '../modules/todo/repository/todo.repository';
 
 const kernel = new Container();
 
-this.autoBindables = [UserService, TodoService];
+this.autoBindables = [UserService, TodoService, JsonDbService];
 
 /* Middleware */
 kernel
@@ -109,4 +110,3 @@ function bind(container: any, bindable: any) {
 }
 
 export { kernel };
-
