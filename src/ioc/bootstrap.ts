@@ -18,7 +18,7 @@ import { UserController } from './../modules/user/controller/user.controller';
 import { HealthCheckController } from '../modules/healthcheck/controller/healthcheck.controller';
 import { TodoController } from '../modules/todo/controller/todo.controller';
 import { TodoService } from '../modules/todo/service/todo.service';
-import { JsonDbService } from '../modules/todo/service/jsondb.service';
+import { JsonDbService } from '../modules/jsondb/service/jsondb.service';
 import { TodoRepository } from '../modules/todo/repository/todo.repository';
 
 const kernel = new Container();

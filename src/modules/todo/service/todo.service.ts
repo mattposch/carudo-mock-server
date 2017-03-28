@@ -1,6 +1,5 @@
 import { inject, injectable} from 'inversify';
-
-import { JsonDbService } from './jsondb.service';
+import { JsonDbService } from '../../jsondb/service/jsondb.service';
 
 @injectable()
 export class TodoService {
@@ -8,37 +7,27 @@ export class TodoService {
     constructor(
         @inject(JsonDbService.name) private _jsonDbService: JsonDbService
     ) {
-      var generatedData = [
-        {
-          "_id": "58c3287be4a9fa06f011b9e3",
-          "text": "short name",
-          "createdOn": "2017-03-10T22:28:11.847Z",
-          "modifiedOn": "2017-03-10T23:10:49.139Z",
-          "isDone": false
-        },
-        {
-          "_id": "58c331b4e4a9fa06f011b9e4",
-          "text": "new todo1",
-          "createdOn": "2017-03-10T23:07:32.921Z",
-          "modifiedOn": "2017-03-21T14:39:59.508Z",
-          "isDone": false
-        },
-        {
-          "_id": "58c3325de4a9fa06f011b9e6",
-          "text": "joko",
-          "createdOn": "2017-03-10T23:10:21.733Z",
-          "modifiedOn": "2017-03-11T15:08:48.471Z",
-          "isDone": false
-        },
-        {
-          "_id": "58c3ed82896c240d7378663f",
-          "text": "lkjlkj",
-          "createdOn": "2017-03-11T12:28:50.409Z",
-          "modifiedOn": "2017-03-11T12:28:50.409Z",
-          "isDone": false
-        }
-      ];
+      var faker = require('faker');
 
+      var generatedData = [];
+
+      for (var i = 0; i <= 3; i++){
+        var randomId = faker.random.uuid();
+        var randomName = faker.name.findName();
+        var randomCreatedOn = faker.date.past();
+        var randomModifiedOn = faker.date.past();
+        var randomIsDone = faker.random.boolean();
+
+        generatedData.push({
+            "_id": randomId,
+            "text": randomName,
+            "createdOn": randomCreatedOn,
+            "modifiedOn": randomModifiedOn,
+            "isDone": randomIsDone
+          });
+      }
+
+      console.log("IN TODO CONSTRUCTOR");
       this._jsonDbService.init(generatedData);
     }
 
