@@ -23,7 +23,7 @@ import { TodoRepository } from '../modules/todo/repository/todo.repository';
 
 const kernel = new Container();
 
-this.autoBindables = [UserService, TodoService, JsonDbService];
+this.autoBindables = [UserService, TodoService];
 
 /* Middleware */
 kernel
@@ -35,6 +35,9 @@ kernel
     .bind(TYPES.AuthService)
     .to(AuthService);
 
+kernel.bind(JsonDbService.name)
+    .to(JsonDbService)
+    .inSingletonScope();
 // todo refactor all to autobindable
 
 bindAll(kernel, this.autoBindables);

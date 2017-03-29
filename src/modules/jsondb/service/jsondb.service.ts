@@ -1,7 +1,6 @@
 import { injectable} from 'inversify';
 
-/*
-JsonDbService.init(dataGen());
+/*JsonDbService.init(dataGen());
 JsonDbService.insert();
 JsonDbService.update();
 JsonDbService.delete();
@@ -11,7 +10,7 @@ JsonDbService.find({query: ''});*/
 @injectable()
 export class JsonDbService {
 
-    data: any[];
+    public data: any[];
 
     constructor(
     ) {
@@ -27,9 +26,6 @@ export class JsonDbService {
     }
 
     public async findById(_id: string): Promise<any> {
-        console.log("FIND ONE BY ID");
-        console.log(this.data);
-
         var element = {
           "message": "Not found Element with id: " + _id,
           "name": "Error"
@@ -46,10 +42,6 @@ export class JsonDbService {
 
     public async create(request: any): Promise<any> {
         this.data.push(request);
-
-        console.log("DATA AFTER CREATE");
-        console.log(this.data);
-
         return request;
     }
 

@@ -21,6 +21,7 @@ const Strategy = passportJWT.Strategy;
 import { PassportMiddleware } from './modules/user/middleware/passport.middleware';
 import { baseExceptionErrorHandler } from './core/error/handler/base.exception.handler';
 import { Database } from './core/database/database';
+import { JsonDbService} from './modules/jsondb/service/jsondb.service';
 import { errorHandler } from './core/error/handler/error.handler';
 import { LoggerFactory } from './core/logging/logger.factory';
 import { config } from './core/config/config';
@@ -104,8 +105,32 @@ export class Application {
             .build();
 
             this.initializePassport();
+            this.initializeJsonDbService();
 
             return this.expressServer;
+    }
+
+    private initializeJsonDbService() {
+      var faker = require('faker');
+      var generatedData = [];
+
+      for (var i = 0; i <= 100; i++){
+        var randomId = faker.random.uuid();
+        var randomName = faker.name.findName();
+        var randomCreatedOn = faker.date.past();
+        var randomModifiedOn = faker.date.past();
+        var randomIsDone = faker.random.boolean();
+
+        generatedData.push({
+            "_id": randomId,
+            "text": randomName,
+            "createdOn": randomCreatedOn,
+            "modifiedOn": randomModifiedOn,
+            "isDone": randomIsDone
+          });
+      }
+
+      kernel.get<JsonDbService>(JsonDbService.name).init(generatedData);
     }
 
     private initializePassport() {
@@ -175,5 +200,3 @@ export class Application {
         app.use(errorHandler);
     }
 }
-
-
